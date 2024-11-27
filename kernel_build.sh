@@ -4,6 +4,10 @@ KERNNAME="WWY"
 KERNVER="ame"
 BUILDDATE=$(date +%Y%m%d)
 # BUILDTIME=$(date +%H%M)
+GREEN='\033[0;32m'
+PURPLE='\033[0;35m'
+RED='\033[0;31m'
+NC='\033[0m'
 
 # Install dependencies
 # sudo apt update && sudo apt install -y bc cpio nano bison ca-certificates curl flex gcc git libc6-dev libssl-dev openssl python-is-python3 ssh wget zip zstd sudo make clang gcc-arm-linux-gnueabi software-properties-common build-essential libarchive-tools gcc-aarch64-linux-gnu
@@ -16,10 +20,10 @@ BUILDDATE=$(date +%Y%m%d)
 
 if ! ls clang-llvm > /dev/null
 then
-    echo "clang not found, cloning..."
+    echo "${GREEN}clang not found, cloning...${NC}"
     git clone -b main https://gitlab.com/Panchajanya1999/azure-clang clang-llvm
 else
-    echo "clang already present, proceeding..."
+    echo "${GREEN}clang already present, proceeding...${NC}"
 fi
 
 # Set variable
@@ -32,10 +36,10 @@ make -j$(nproc --all) O=out ARCH=arm64 CC=$(pwd)/clang-llvm/bin/clang CROSS_COMP
 # Execute
 if make -j$(nproc --all) O=out ARCH=arm64 CC=$(pwd)/clang-llvm/bin/clang CROSS_COMPILE=aarch64-linux-gnu- CLANG_TRIPLE=aarch64-linux-gnu- LLVM_IAS=1
 then
-    echo "Build successful"
+    echo -e "${GREEN}Build successful${NC}"
     tput bel
 else
-    echo "Build failed, exiting..."
+    echo -e "${RED}Build failed, exiting...${NC}"
     tput bel
     exit 1
 fi
@@ -75,4 +79,6 @@ case $yn in
 esac
 
 rm -rf AnyKernel3/
-echo "Build finished"
+echo -e "${GREEN}Build finished${NC}"
+echo -e "File: ${PURPLE}$(pwd)/$KERNNAME-$KERNVER-$BUILDDATE.zip${NC}"
+
