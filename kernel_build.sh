@@ -20,10 +20,10 @@ NC='\033[0m'
 
 if ! ls clang-llvm > /dev/null
 then
-    echo "${GREEN}clang not found, cloning...${NC}"
+    echo -e "${GREEN}clang not found, cloning...${NC}"
     git clone -b main https://gitlab.com/Panchajanya1999/azure-clang clang-llvm
 else
-    echo "${GREEN}clang already present, proceeding...${NC}"
+    echo -e "${GREEN}clang already present, proceeding...${NC}"
 fi
 
 # Set variable
