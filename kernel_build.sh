@@ -49,25 +49,6 @@ zip -r9 "$KERNNAME"-"$KERNVER"-"$BUILDDATE" . -x ".git*" -x "README.md" -x "*.zi
 mv "$KERNNAME"-"$KERNVER"-"$BUILDDATE".zip ../
 cd ..
 
-rm go-pd*
-wget https://github.com/ManuelReschke/go-pd/releases/download/v1.5.0/go-pd_1.5.0_linux_amd64.tar.gz
-mv go-pd_1.5.0_linux_amd64.tar.gz go-pd.tar.gz
-tar -xf go-pd.tar.gz
-rm go-pd.tar.gz
-
-echo "Please, input your PixelDrain API key below"
-# Dayum, go-pd now requires API key as well ヽ(。_°)ノ
-echo "If you dont have one - just press Enter key, kernel $KERNNAME-$KERNVER-$BUILDDATE.zip is located on the root of your source"
-read KEY
-if [ -z "${KEY}" ];
-then
-	echo "The key is empty, passing"
-else
-	echo "Your key is $KEY"
-	echo "Uploading kernel to PixelDrain"
-	./go-pd upload "$KERNNAME"-"$KERNVER"-"$BUILDDATE".zip -k $KEY -v	
-fi
-
 echo "Cleaning up..."
 
 read -p "Would you like to remove out/ directory? (Yy/Nn)" yn
