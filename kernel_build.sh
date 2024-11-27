@@ -16,7 +16,10 @@ BUILDDATE=$(date +%Y%m%d)
 
 if ! ls clang-llvm > /dev/null
 then
+    echo "clang not found, cloning..."
     git clone -b main https://gitlab.com/Panchajanya1999/azure-clang clang-llvm
+else
+    echo "clang already present, proceeding..."
 fi
 
 # Set variable
