@@ -12,11 +12,11 @@ BUILDDATE=$(date +%Y%m%d)
 # AOSP clang
 # git clone --depth=1 https://gitlab.com/anandhan07/aosp-clang.git clang-llvm
 # use weebX clang now lol
+# no weebx, use azure clang now
 
 if ! ls clang-llvm > /dev/null
 then
-    wget "$(curl -s https://raw.githubusercontent.com/XSans0/WeebX-Clang/main/main/link.txt)" -O "weebx-clang.tar.gz"
-    mkdir clang-llvm && tar -xf weebx-clang.tar.gz -C clang-llvm && rm -rf weebx-clang.tar.gz
+    git clone -b main https://gitlab.com/Panchajanya1999/azure-clang clang-llvm
 fi
 
 # Set variable
@@ -44,10 +44,7 @@ cp -R out/arch/arm64/boot/Image.gz AnyKernel3/Image.gz
 cd AnyKernel3
 zip -r9 "$KERNNAME"-"$KERNVER"-"$BUILDDATE" . -x ".git*" -x "README.md" -x "*.zip"
 
-# Will use go-pd as direct upload requires API key which i dont have ╮(─▽─)╭
-# curl -T Atlas-B1-"$BUILDDATE".zip https://pixeldrain.com/api/file/
-
-# Lemme move kernel zip to the root of source
+# Move kernel zip to the root of source
 
 mv "$KERNNAME"-"$KERNVER"-"$BUILDDATE".zip ../
 cd ..
