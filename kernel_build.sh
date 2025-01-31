@@ -42,7 +42,8 @@ case $yn in
     ;;
 
     [nN] )
-    	echo "Proceeding without menuconfig..."
+    	echo "Proceeding without menuconfig...";
+	make -j$(nproc --all) O=out ARCH=arm64 CC=$(pwd)/clang-llvm/bin/clang CROSS_COMPILE=aarch64-linux-gnu- CLANG_TRIPLE=aarch64-linux-gnu- LLVM_IAS=1 vendor/fog-perf_defconfig
     ;;
 
     * )
