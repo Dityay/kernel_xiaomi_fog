@@ -105,7 +105,7 @@ KERNEL_BOOTIMAGE_TAGS_OFFSET = 0xfef3aa9b
 # Devices launched with Android 11: version 2 or 3 (GKI)
 # Devices launched with Android 12: version 3 (GKI) or 4 (GKI)
 # Devices launched with Android 13: version 3 (GKI) or 4 (GKI)
-KERNEL_BOOTIMAGE_VERSION = 3
+KERNEL_BOOTIMAGE_VERSION = 2
 
 # Kernel initramfs compression. Defaults to gzip.
 # All non-gki devices need a gzip (gz) initramfs
@@ -200,7 +200,7 @@ BUILD_SKIP_MODULES = 0
 
 # Extra paths to prepend to the PATH variable. You'll probably want
 # to specify the clang path here (the default).
-BUILD_PATH = /usr/lib/llvm-android-10.0-r370808/bin
+BUILD_PATH = /buildd/sources/clang-llvm/bin
 
 # Extra packages to add to the Build-Depends section. Mainline builds
 # can have this section empty, unless cross-building.
