@@ -70,11 +70,6 @@ log.txt
 *.zip
 
 #
-# Debian directory (make deb-pkg)
-#
-/debian/
-
-#
 # Snap directory (make snap-pkg)
 #
 /snap/
