@@ -11,7 +11,7 @@ VARIANT = android
 KERNEL_BASE_VERSION = 4.19-328
 
 # The kernel cmdline to use
-KERNEL_BOOTIMAGE_CMDLINE = console=tty0 earlycon=msm_geni_serial,0x4a90000 androidboot.hardware=qcom androidboot.console=tty0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.selinux=permissive buildvariant=user datapart=/dev/mmcblk0p1
+KERNEL_BOOTIMAGE_CMDLINE = console=tty0 earlycon=msm_geni_serial,0x4a90000 androidboot.hardware=qcom androidboot.console=tty0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.selinux=permissive buildvariant=userdebug datapart=/dev/block/mmcblk0p1
 
 # Slug for the device vendor. This is going to be used in the KERNELRELASE
 # and package names.
@@ -44,7 +44,7 @@ KERNEL_DEFCONFIG = vendor/fog-perf_defconfig
 
 # Whether to include DTBs with the image. Use 0 (no) or 1.
 # GKI devices should set this to 0
-KERNEL_IMAGE_WITH_DTB = 1
+KERNEL_IMAGE_WITH_DTB = 0
 
 # Path to the DTB
 # If you leave this undefined, an attempt to find it automatically
@@ -53,7 +53,7 @@ KERNEL_IMAGE_WITH_DTB = 1
 
 # Whether to include a DTB Overlay. Use 0 (no) or 1.
 # GKI devices should set this to 0
-KERNEL_IMAGE_WITH_DTB_OVERLAY = 1
+KERNEL_IMAGE_WITH_DTB_OVERLAY = 0
 
 # Path to the DTB overlay.
 # If you leave this undefined, an attempt to find it automatically
