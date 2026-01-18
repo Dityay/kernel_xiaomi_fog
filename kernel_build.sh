@@ -63,10 +63,6 @@ if make_fun 2>&1 | tee -a "$LOG_FILE"; then
     echo -e "${PURPLE}Cloning AnyKernel3 and packaging...${NC}"
     git clone --depth=1 https://github.com/Dityay/AnyKernel3 AnyKernel3
     
-    # APPLY OPTIMIZATIONS: Force settings in anykernel.sh before zipping
-    echo 'write /proc/sys/vm/swappiness 165;' >> AnyKernel3/anykernel.sh
-    echo 'write /proc/sys/vm/vfs_cache_pressure 50;' >> AnyKernel3/anykernel.sh
-    
     cp out/arch/arm64/boot/Image.gz AnyKernel3/Image.gz
     cd AnyKernel3
     ZIP_NAME="$KERNNAME-$KERNVER-$BUILDDATE.zip"
