@@ -967,10 +967,8 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
 
 	hold_task_mempolicy(priv);
 
-<<<<<<< HEAD
+
 	for (vma = priv->mm->mmap; vma; vma = vma->vm_next) {
-=======
-	for (vma = priv->mm->mmap; vma;) {
 #ifdef CONFIG_KSU_SUSFS_SUS_MAP
 		if (vma->vm_file &&
 			unlikely(file_inode(vma->vm_file)->i_mapping->flags & BIT_SUS_MAPS) &&
@@ -980,7 +978,6 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
 			goto bypass_orig_flow;
 		}
 #endif
->>>>>>> a29fee2aa528 (KernelSU: Backport SuSFS V2.0.0)
 		smap_gather_stats(vma, &mss);
 #ifdef CONFIG_KSU_SUSFS_SUS_MAP
 bypass_orig_flow:
