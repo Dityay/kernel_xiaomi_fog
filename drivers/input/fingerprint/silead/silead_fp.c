@@ -211,9 +211,9 @@ static nav_keymap_t keymap[] = {
     { NAV_KEY_DOWN,     KEY_DOWN,       },
     { NAV_KEY_RIGHT,    KEY_RIGHT,      },
     { NAV_KEY_LEFT,     KEY_LEFT,       },
-    { NAV_KEY_CLICK,    KEY_HOMEPAGE,   },
-    { NAV_KEY_DCLICK,   KEY_HOMEPAGE,   },
-    { NAV_KEY_LONGPRESS,KEY_HOMEPAGE,   },
+    { NAV_KEY_CLICK,    KEY_RESERVED,   },
+    { NAV_KEY_DCLICK,   KEY_RESERVED,   },
+    { NAV_KEY_LONGPRESS,KEY_RESERVED,   },
 };
 
 static LIST_HEAD(device_list);
@@ -657,21 +657,11 @@ static int silfp_keyevent(struct silfp_data	*fp_dev, struct fp_dev_key_t *pkey)
 
         /* Check the custom define keymap */
         if (fp_dev->keymap_cust.k[pkey->value - NAV_KEY_START]) {
-            LOG_MSG_DEBUG(INFO_LOG, "[%s] custom-key %d\n", __func__,fp_dev->keymap_cust.k[pkey->value - NAV_KEY_START]);
-            if (KEY_RESERVED != fp_dev->keymap_cust.k[pkey->value - NAV_KEY_START]) {
-                if (NAV_KEY_FLAG_CLICK == pkey->flag) {
-                    input_report_key(fp_dev->input, fp_dev->keymap_cust.k[pkey->value - NAV_KEY_START], NAV_KEY_FLAG_DOWN);
-                    input_sync(fp_dev->input);
-                    input_report_key(fp_dev->input, fp_dev->keymap_cust.k[pkey->value - NAV_KEY_START], NAV_KEY_FLAG_UP);
-                    input_sync(fp_dev->input);
-                } else {
-                    input_report_key(fp_dev->input, fp_dev->keymap_cust.k[pkey->value - NAV_KEY_START], pkey->flag);
-                    input_sync(fp_dev->input);
-                }
-            } else {
-                // Here means this key is not set, simply ignore it.
-            }
+            /* NAV key disabled: biometric only */
+            LOG_MSG_DEBUG(INFO_LOG, "[%s] nav key ignored\n", __func__);
             ret = 0;
+            return ret;
+
         }
     }
 
@@ -852,12 +842,12 @@ static int silfp_input_init(struct silfp_data *fp_dev)
 
     __set_bit(EV_KEY, fp_dev->input->evbit);
     //__set_bit(KEY_Q, fp_dev->input->keybit); // it will cause Android think this is a physical keyboard.
-    __set_bit(KEY_HOME, fp_dev->input->keybit);
-    __set_bit(KEY_HOMEPAGE, fp_dev->input->keybit);
+    //__set_bit(KEY_HOME, fp_dev->input->keybit);
+    //__set_bit(KEY_HOMEPAGE, fp_dev->input->keybit);
 
-    __set_bit(KEY_MENU, fp_dev->input->keybit);
-    __set_bit(KEY_BACK, fp_dev->input->keybit);
-    __set_bit(KEY_CAMERA, fp_dev->input->keybit);
+    //__set_bit(KEY_MENU, fp_dev->input->keybit);
+    //__set_bit(KEY_BACK, fp_dev->input->keybit);
+    //__set_bit(KEY_CAMERA, fp_dev->input->keybit);
 
     for (i = 0; i < ARRAY_SIZE(keymap); i++) {
         if (keymap[i].key_new != KEY_RESERVED) {
@@ -1105,7 +1095,7 @@ silfp_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
         LOG_MSG_DEBUG(INFO_LOG, "[%s] irq status\n", __func__);
         retval = __put_user((char)silfp_irq_status(fp_dev), (__u8 __user *)arg);
         break;
-
+/*
     case SIFP_IOC_KEY_EVENT:
         if (copy_from_user(&key, (struct fp_dev_key_t *)arg, sizeof(struct fp_dev_key_t))) {
             LOG_MSG_DEBUG(ERR_LOG, "[%s] copy key fail?\n",__func__);
@@ -1114,7 +1104,7 @@ silfp_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
             retval = silfp_keyevent(fp_dev,&key);
         }
         break;
-
+*/
     case SIFP_IOC_SCR_STATUS:
         if (arg) {
             LOG_MSG_DEBUG(INFO_LOG, "[IOC_SCR_STATUS] put v = %d\n",(u8)(!fp_dev->scr_off));

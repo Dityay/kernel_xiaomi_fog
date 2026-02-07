@@ -192,7 +192,7 @@ struct fp_dev_touch_info {
 #define SIFP_IOC_CLR_IRQ      _IO(SIFP_IOC_MAGIC,  14)
 //#define SPFP_IOC_EXIT       _IOR(SIFP_IOC_MAGIC, 1, u8)
 
-#define SIFP_IOC_KEY_EVENT    _IOW(SIFP_IOC_MAGIC, 15, struct fp_dev_key_t)
+//#define SIFP_IOC_KEY_EVENT    _IOW(SIFP_IOC_MAGIC, 15, struct fp_dev_key_t)
 #define SIFP_IOC_INIT         _IOR(SIFP_IOC_MAGIC, 16, struct fp_dev_init_t)
 #define SIFP_IOC_DEINIT       _IO(SIFP_IOC_MAGIC,  17)
 #define SIFP_IOC_IRQ_STATUS   _IOR(SIFP_IOC_MAGIC, 18, u8)
