@@ -3329,18 +3329,18 @@ int sched_fork(unsigned long clone_flags, struct task_struct *p)
 	return 0;
 }
 
-<<<<<<< HEAD
-=======
+
 void sched_post_fork(struct task_struct *p)
 {
+#ifdef CONFIG_UCLAMP_TASK
 	uclamp_post_fork(p);
+#endif
 
 #ifdef CONFIG_SCHED_BORE
 	sched_post_fork_bore(p);
 #endif // CONFIG_SCHED_BORE
 }
 
->>>>>>> e8f7f5c173d1 (sched: Introduce BORE Scheduler (5.1.0))
 unsigned long to_ratio(u64 period, u64 runtime)
 {
 	if (runtime == RUNTIME_INF)
